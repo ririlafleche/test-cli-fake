@@ -1,0 +1,25 @@
+name: Fake dev CI using compromised CLI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Installation du package malveillant
+        run: |
+          pip install test-cli-fake
+
+      - name: Run un mauvais git status
+        run: git status
